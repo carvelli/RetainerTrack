@@ -15,7 +15,6 @@ namespace RetainerTrack.Handlers
         private readonly GameGui _gameGui;
         private readonly PersistenceContext _persistenceContext;
 
-        private AddonItemSearchResult* _itemSearchResultAddon;
         private Hook<Draw>? _drawHook;
 
         private delegate void Draw(AtkUnitBase* addon);
@@ -30,19 +29,20 @@ namespace RetainerTrack.Handlers
             _framework = framework;
             _gameGui = gameGui;
             _persistenceContext = persistenceContext;
-            ;
 
             _framework.Update += FrameworkUpdate;
         }
 
+        private AddonItemSearchResult* ItemSearchResult => (AddonItemSearchResult*)_gameGui.GetAddonByName("ItemSearchResult");
+
         private void FrameworkUpdate(Framework framework)
         {
-            _itemSearchResultAddon = (AddonItemSearchResult*)_gameGui.GetAddonByName("ItemSearchResult");
-            if (_itemSearchResultAddon == null)
+            var addon = ItemSearchResult;
+            if (addon == null)
                 return;
 
             _drawHook ??= Hook<Draw>.FromAddress(
-                new nint(_itemSearchResultAddon->AtkUnitBase.AtkEventListener.vfunc[42]),
+                new nint(addon->AtkUnitBase.AtkEventListener.vfunc[42]),
                 AddonDraw);
             _drawHook.Enable();
             _framework.Update -= FrameworkUpdate;
@@ -58,10 +58,11 @@ namespace RetainerTrack.Handlers
         {
             try
             {
-                if (_itemSearchResultAddon == null || !_itemSearchResultAddon->AtkUnitBase.IsVisible)
+                var addon = ItemSearchResult;
+                if (addon == null || !addon->AtkUnitBase.IsVisible)
                     return;
 
-                var results = _itemSearchResultAddon->Results;
+                var results = addon->Results;
                 if (results == null)
                     return;
 
