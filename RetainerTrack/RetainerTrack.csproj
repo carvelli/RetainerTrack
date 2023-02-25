@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <Version>1.0</Version>
+        <LangVersion>11.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DebugType>portable</DebugType>
+        <PathMap Condition="$(SolutionDir) != ''">$(SolutionDir)=X:\</PathMap>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <OutputPath>dist</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DalamudPackager" Version="2.1.10" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--You may need to adjust these paths yourself. These point to a Dalamud assembly in AppData.-->
+        <Reference Include="Dalamud">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ImGui.NET">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ImGuiScene">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Lumina">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Lumina.Excel">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="FFXIVClientStructs">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+</Project>
