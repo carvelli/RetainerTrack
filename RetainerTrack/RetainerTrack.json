@@ -1,7 +1,8 @@
 ﻿{
   "Name": "RetainerTrack",
   "Author": "Liza Carvelli",
-  "Punchline": "",
-  "Description": "",
-  "RepoUrl": "https://github.com/carvelli/RetainerTrack"
+  "Punchline": "Track who a retainer belongs to.",
+  "Description": "Keeps track of who a retainer belongs to - if you have seen the retainer's owner locally (if you were on the same party, or if you have seen an item crafted by them).\n\nTracking is unavailable if the crafter isn't the retainer owner (to avoid resellers being attributed incorrectly), and if the tooltip says 'Obtaining Signature'.",
+  "RepoUrl": "https://github.com/carvelli/RetainerTrack",
+  "Tags": ["retainer", "track"]
 }
