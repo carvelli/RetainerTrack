@@ -68,7 +68,7 @@ namespace RetainerTrack.Handlers
             }
             else if (opcode == _contentIdMappingOpCode)
             {
-                var mapping = ContentIdToName.Read(dataPtr);
+                var mapping = ContentIdToName.ReadFromNetworkPacket(dataPtr);
                 _logger.LogTrace("Content id {ContentId} belongs to player '{Name}'", mapping.ContentId,
                     !string.IsNullOrEmpty(mapping.PlayerName) ? mapping.PlayerName : "<unknown>");
                 Task.Run(() => _persistenceContext.HandleContentIdMapping(mapping));

@@ -8,7 +8,7 @@ namespace RetainerTrack.Handlers
         public ulong ContentId { get; init; }
         public string PlayerName { get; init; } = string.Empty;
 
-        public static unsafe ContentIdToName Read(nint dataPtr)
+        public static unsafe ContentIdToName ReadFromNetworkPacket(nint dataPtr)
         {
             using UnmanagedMemoryStream input = new UnmanagedMemoryStream((byte*)dataPtr.ToPointer(), 40);
             using BinaryReader binaryReader = new BinaryReader(input);
