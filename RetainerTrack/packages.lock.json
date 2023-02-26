@@ -6,7 +6,7 @@
         "type": "Direct",
         "requested": "[1.0.0, )",
         "resolved": "1.0.0",
-        "contentHash": "tia8fRydfXFoig0eLdacomxDPCiE7IUzWwIq1A2x8CNmXJlebwJ7puzip7/GmnmRuf2TyQv/87wkiQoavVyEpw==",
+        "contentHash": "nPjMrT9n9GJ+TYF1lyVhlvhmFyN4ajMX2ccclgyMc8MNpOGZwxrJ4VEtrUUk7UkuX2wAhtnNsjrcf5sER3/CbA==",
         "dependencies": {
           "Microsoft.Extensions.Logging": "7.0.0"
         }
