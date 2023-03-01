@@ -32,12 +32,13 @@ namespace RetainerTrack.Handlers
                 return;
 
             _lastUpdate = now;
-            List<ContentIdToName> mappings = new();
 
+            // skip if we're not in an alliance, party members are handled via social list updates
             var groupManager = GroupManager.Instance();
-            foreach (var partyMember in groupManager->PartyMembersSpan)
-                HandlePartyMember(partyMember, mappings);
+            if (groupManager->AllianceFlags == 0x0)
+                return;
 
+            List<ContentIdToName> mappings = new();
             foreach (var allianceMember in groupManager->AllianceMembersSpan)
                 HandlePartyMember(allianceMember, mappings);
 
@@ -51,6 +52,9 @@ namespace RetainerTrack.Handlers
                 return;
 
             string name = MemoryHelper.ReadStringNullTerminated((nint)partyMember.Name);
+            if (string.IsNullOrEmpty(name))
+                return;
+
             contentIdToNames.Add(new ContentIdToName
             {
                 ContentId = (ulong)partyMember.ContentID,

@@ -101,6 +101,13 @@ namespace RetainerTrack.Handlers
             {
                 var updates = mappings
                     .Where(mapping => mapping.ContentId != 0 && !string.IsNullOrEmpty(mapping.PlayerName))
+                    .Where(mapping =>
+                    {
+                        if (_playerNameCache.TryGetValue(mapping.ContentId, out string? existingName))
+                            return mapping.PlayerName != existingName;
+
+                        return true;
+                    })
                     .Select(mapping =>
                         new Player
                         {

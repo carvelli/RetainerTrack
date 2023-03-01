@@ -53,6 +53,7 @@ namespace RetainerTrack
             serviceCollection.AddSingleton<NetworkHandler>();
             serviceCollection.AddSingleton<PartyHandler>();
             serviceCollection.AddSingleton<MarketBoardUiHandler>();
+            serviceCollection.AddSingleton<GameHooks>();
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -65,6 +66,7 @@ namespace RetainerTrack
             _serviceProvider.GetRequiredService<PartyHandler>();
             _serviceProvider.GetRequiredService<NetworkHandler>();
             _serviceProvider.GetRequiredService<MarketBoardUiHandler>();
+            _serviceProvider.GetRequiredService<GameHooks>();
         }
 
         public void Dispose()

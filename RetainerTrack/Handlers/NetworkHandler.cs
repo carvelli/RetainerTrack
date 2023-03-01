@@ -17,9 +17,7 @@ namespace RetainerTrack.Handlers
         private readonly ClientState _clientState;
         private readonly PersistenceContext _persistenceContext;
 
-        private readonly ushort? _contentIdMappingOpCode;
-
-        public unsafe NetworkHandler(
+        public NetworkHandler(
             ILogger<NetworkHandler> logger,
             GameNetwork gameNetwork,
             DataManager dataManager,
@@ -31,14 +29,6 @@ namespace RetainerTrack.Handlers
             _dataManager = dataManager;
             _clientState = clientState;
             _persistenceContext = persistenceContext;
-
-            if (Framework.Instance()->GameVersion.Base == "2023.02.03.0000.0000")
-                _contentIdMappingOpCode = 0x01C4;
-            else
-            {
-                _logger.LogWarning("Not tracking content id mappings, unsupported game version {Version}",
-                    Framework.Instance()->GameVersion.Base);
-            }
 
             _gameNetwork.NetworkMessage += NetworkMessage;
         }
@@ -65,13 +55,6 @@ namespace RetainerTrack.Handlers
 
                 var listings = MarketBoardCurrentOfferings.Read(dataPtr);
                 Task.Run(() => _persistenceContext.HandleMarketBoardPage(listings, worldId));
-            }
-            else if (opcode == _contentIdMappingOpCode)
-            {
-                var mapping = ContentIdToName.ReadFromNetworkPacket(dataPtr);
-                _logger.LogTrace("Content id {ContentId} belongs to player '{Name}'", mapping.ContentId,
-                    !string.IsNullOrEmpty(mapping.PlayerName) ? mapping.PlayerName : "<unknown>");
-                Task.Run(() => _persistenceContext.HandleContentIdMapping(mapping));
             }
         }
     }
